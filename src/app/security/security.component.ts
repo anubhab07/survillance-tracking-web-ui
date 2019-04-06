@@ -70,6 +70,10 @@ export class SecurityComponent implements OnInit {
     this.visitorTypeAccess = this.userDetails.visitorTypeAccess;
     this.accessType.setValue(this.visitorTypeAccess[0].typeCode);
     this.initializeVisitor();
+    this.getSpecialVisitors();
+  }
+
+  getSpecialVisitors() {
     this.securityService.fetchSpecialVisitors().subscribe((res: ISpecialGuestListResponse) => {
       // console.log(res.data[0]);
       res.data.forEach(guest => {
@@ -200,7 +204,8 @@ export class SecurityComponent implements OnInit {
           } else {
             alert(response.message);
           }
-          this.ngxLoader.stop();
+          this.getSpecialVisitors();
+          // this.ngxLoader.stop();
         }, error => {
           this.ngxLoader.stop();
           alert('Sorry some error occured');
